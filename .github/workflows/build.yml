@@ -10,8 +10,9 @@ jobs:
           java-version: 17
           distribution: temurin
       - run: chmod +x gradlew
-      - run: ./gradlew assembleRelease
+      - run: ./gradlew assembleDebug
+      - run: ls -la app/build/outputs/apk/debug/
       - uses: actions/upload-artifact@v4
         with:
-          name: release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: debug-apk
+          path: app/build/outputs/apk/debug/
