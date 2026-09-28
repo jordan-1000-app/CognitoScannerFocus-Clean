@@ -11,8 +11,8 @@ jobs:
           distribution: temurin
       - run: chmod +x gradlew
       - run: ./gradlew assembleDebug
-      - run: find . -name "*.apk" -type f
+      - run: ls -la app/build/outputs/apk/debug/
       - uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: debug-apk
+          path: app/build/outputs/apk/debug/
