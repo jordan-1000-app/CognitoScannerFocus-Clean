@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 startService(Intent(this, ScannerFocusService::class.java))
                 statusText.text = "🟢 ACCESO"
-                statusText.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
+                statusText.tTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
             } else {
                 stopService(Intent(this, ScannerFocusService::class.java))
                 statusText.text = "🔴 SPENTO"
@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         val settingsButton = findViewById<Button>(R.id.settingsButton)
         settingsButton.setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+
+        val forceFocusButton = findViewById<Button>(R.id.forceFocusButton)
+        forceFocusButton.setOnClickListener {
+            sendBroadcast(Intent("com.cognito.scanner.focus.FORCE_FOCUS"))
         }
     }
 }
