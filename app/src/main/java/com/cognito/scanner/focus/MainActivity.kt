@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 startService(Intent(this, ScannerFocusService::class.java))
                 statusText.text = "🟢 ACCESO"
-                statusText.tTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
+                statusText.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
             } else {
                 stopService(Intent(this, ScannerFocusService::class.java))
                 statusText.text = "🔴 SPENTO"
