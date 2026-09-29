@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var toggleSwitch: Switch
@@ -22,10 +23,12 @@ class MainActivity : AppCompatActivity() {
         toggleSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 startService(Intent(this, ScannerFocusService::class.java))
-                statusText.text = "🟢 Plugin ATTIVO - Focus mantenuto"
+                statusText.text = "🟢 ACCESO"
+                statusText.tTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
             } else {
-              stopService(Intent(this, ScannerFocusService::class.java))
-                statusText.text = "🔴 Plugin SPENTO - Funzionamento normale"
+                stopService(Intent(this, ScannerFocusService::class.java))
+                statusText.text = "🔴 SPENTO"
+                statusText.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
             }
         }
 
