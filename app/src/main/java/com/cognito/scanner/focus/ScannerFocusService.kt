@@ -8,23 +8,27 @@ class ScannerFocusService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event == null) return
         if (event.packageName != "com.cognitoiq.ciqmobile.byod.hermes") return
-        if (event.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) {
-            focusOnBarcodeField()
-        }
+        
+        focusOnBarcodeField()
     }
 
     private fun focusOnBarcodeField() {
         val rootNode = rootInActiveWindow ?: return
-        findAndFocusEditText(rootNode)
+        findAndFocusBarcodeField(rootNode)
     }
 
-    private fun findAndFocusEditText(node: AccessibilityNodeInfo) {
+    private fun findAndFocusBarcodeField(node: AccessibilityNodeInfo) {
+        // Cerca EditText con hint "Scan or enter a barcode"
         if (node.className?.contains("EditText") == true) {
-            node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
-            return
+            val hint = node.hintText?.toString() ?: ""
+            if (hint.contains("Scan") || hint.contains("barcode")) {
+                node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
+                return
+            }
         }
+        
         for (i in 0 until node.childCount) {
-            node.getChild(i)?.let { findAndFocusEditText(it) }
+            node.getChild(i)?.let { findAndFocusBarcodeField(it) }
         }
     }
 
